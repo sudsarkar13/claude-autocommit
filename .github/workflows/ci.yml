@@ -25,6 +25,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Run tests
+        run: npm test
+
       - name: Build
         run: node esbuild.mjs --production
 

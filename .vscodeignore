@@ -1,6 +1,7 @@
 .vscode/**
 .github/**
 src/**
+test/**
 node_modules/**
 out/**
 **/*.map
@@ -13,6 +14,8 @@ package-lock.json
 CONTRIBUTING.md
 !dist/extension.js
 !media/icon.png
+!media/icon-light.svg
+!media/icon-dark.svg
 !README.md
 !CHANGELOG.md
 !LICENSE

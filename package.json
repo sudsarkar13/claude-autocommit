@@ -253,6 +253,7 @@
     "watch": "node esbuild.mjs --watch",
     "check-types": "tsc --noEmit",
     "lint": "eslint src --ext ts",
+    "test": "esbuild test/unit.test.ts --bundle --platform=node | node",
     "package": "vsce package",
     "publish": "vsce publish"
   },
