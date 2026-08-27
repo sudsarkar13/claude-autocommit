@@ -4,7 +4,7 @@ export class Logger implements vscode.Disposable {
   private readonly channel: vscode.LogOutputChannel;
 
   constructor() {
-    this.channel = vscode.window.createOutputChannel('Claude Commit', { log: true });
+    this.channel = vscode.window.createOutputChannel('Claude Auto Commit', { log: true });
   }
 
   info(message: string): void {

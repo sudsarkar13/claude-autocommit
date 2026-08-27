@@ -2,7 +2,7 @@
  * Conventional Commit types paired with exactly one gitmoji each.
  *
  * One emoji per commit, attached to the type — never to the description.
- * Users can override any of these through `claudeCommit.emojiMap`.
+ * Users can override any of these through `claudeAutoCommit.emojiMap`.
  */
 export const DEFAULT_EMOJI_MAP: Readonly<Record<string, string>> = {
   feat: '✨',

@@ -1,4 +1,4 @@
-import type { ClaudeCommitConfig } from './config';
+import type { ClaudeAutoCommitConfig } from './config';
 import { TYPE_GUIDANCE, emojiFor } from './commitTypes';
 import type { StagedDiff } from './git';
 
@@ -11,7 +11,7 @@ export interface CommitDraft {
   breakingDescription: string | null;
 }
 
-export function buildJsonSchema(config: ClaudeCommitConfig): Record<string, unknown> {
+export function buildJsonSchema(config: ClaudeAutoCommitConfig): Record<string, unknown> {
   return {
     type: 'object',
     properties: {
@@ -52,7 +52,7 @@ export function buildJsonSchema(config: ClaudeCommitConfig): Record<string, unkn
   };
 }
 
-export function buildSystemPrompt(config: ClaudeCommitConfig): string {
+export function buildSystemPrompt(config: ClaudeAutoCommitConfig): string {
   const budget = subjectTextBudget(config);
 
   const typeList = config.types
@@ -161,7 +161,7 @@ export function buildUserPrompt(staged: StagedDiff, branch: string | undefined):
   return sections.join('\n\n');
 }
 
-function subjectTextBudget(config: ClaudeCommitConfig): number {
+function subjectTextBudget(config: ClaudeAutoCommitConfig): number {
   // Reserve room for the emoji, the type, an optional scope, and ": ".
   const overhead = 2 + longest(config.types) + (config.includeScope ? 14 : 0) + 2;
   return Math.max(20, config.maxSubjectLength - overhead);

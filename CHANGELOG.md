@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Claude Commit are documented here. The format follows
+All notable changes to Claude Auto Commit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -20,7 +20,7 @@ Initial release.
 - Exactly one emoji per message, attached to the commit type, positioned before
   or after the type or omitted entirely.
 - Eleven default commit types with gitmoji defaults, and ten more recognised
-  types available through `claudeCommit.types`.
+  types available through `claudeAutoCommit.types`.
 - Breaking-change detection producing `type(scope)!:` and a `BREAKING CHANGE:`
   footer.
 - Per-file diff trimming with an explicit notice when a staged diff is too large

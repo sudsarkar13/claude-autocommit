@@ -1,6 +1,6 @@
 {
-  "name": "claude-commit",
-  "displayName": "Claude Commit",
+  "name": "claude-autocommit",
+  "displayName": "Claude Auto Commit",
   "description": "Generate Conventional Commit messages with a single gitmoji from your staged changes, using your existing Claude subscription.",
   "version": "0.1.0",
   "publisher": "sudsarkar13",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sudsarkar13/claude-commit.git"
+    "url": "https://github.com/sudsarkar13/claude-autocommit.git"
   },
   "bugs": {
-    "url": "https://github.com/sudsarkar13/claude-commit/issues"
+    "url": "https://github.com/sudsarkar13/claude-autocommit/issues"
   },
-  "homepage": "https://github.com/sudsarkar13/claude-commit#readme",
+  "homepage": "https://github.com/sudsarkar13/claude-autocommit#readme",
   "icon": "media/icon.png",
   "galleryBanner": {
     "color": "#1F1E1D",
@@ -45,71 +45,71 @@
   "capabilities": {
     "untrustedWorkspaces": {
       "supported": false,
-      "description": "Claude Commit runs the Claude Code CLI against your repository."
+      "description": "Claude Auto Commit runs the Claude Code CLI against your repository."
     }
   },
   "contributes": {
     "commands": [
       {
-        "command": "claudeCommit.generate",
+        "command": "claudeAutoCommit.generate",
         "title": "Generate Commit Message",
-        "category": "Claude Commit",
+        "category": "Claude Auto Commit",
         "icon": "$(sparkle)",
-        "enablement": "!claudeCommit.running"
+        "enablement": "!claudeAutoCommit.running"
       },
       {
-        "command": "claudeCommit.generateAndCommit",
+        "command": "claudeAutoCommit.generateAndCommit",
         "title": "Generate Message and Commit",
-        "category": "Claude Commit",
-        "enablement": "!claudeCommit.running"
+        "category": "Claude Auto Commit",
+        "enablement": "!claudeAutoCommit.running"
       },
       {
-        "command": "claudeCommit.cancel",
+        "command": "claudeAutoCommit.cancel",
         "title": "Cancel Generation",
-        "category": "Claude Commit",
+        "category": "Claude Auto Commit",
         "icon": "$(stop-circle)",
-        "enablement": "claudeCommit.running"
+        "enablement": "claudeAutoCommit.running"
       },
       {
-        "command": "claudeCommit.checkAuth",
+        "command": "claudeAutoCommit.checkAuth",
         "title": "Check Claude Subscription Status",
-        "category": "Claude Commit"
+        "category": "Claude Auto Commit"
       },
       {
-        "command": "claudeCommit.showOutput",
+        "command": "claudeAutoCommit.showOutput",
         "title": "Show Logs",
-        "category": "Claude Commit"
+        "category": "Claude Auto Commit"
       }
     ],
     "menus": {
       "scm/title": [
         {
-          "command": "claudeCommit.generate",
+          "command": "claudeAutoCommit.generate",
           "group": "navigation",
-          "when": "scmProvider == git && !claudeCommit.running"
+          "when": "scmProvider == git && !claudeAutoCommit.running"
         },
         {
-          "command": "claudeCommit.cancel",
+          "command": "claudeAutoCommit.cancel",
           "group": "navigation",
-          "when": "scmProvider == git && claudeCommit.running"
+          "when": "scmProvider == git && claudeAutoCommit.running"
         },
         {
-          "command": "claudeCommit.generateAndCommit",
+          "command": "claudeAutoCommit.generateAndCommit",
           "group": "1_modification",
           "when": "scmProvider == git"
         }
       ],
       "commandPalette": [
         {
-          "command": "claudeCommit.cancel",
-          "when": "claudeCommit.running"
+          "command": "claudeAutoCommit.cancel",
+          "when": "claudeAutoCommit.running"
         }
       ]
     },
     "configuration": {
-      "title": "Claude Commit",
+      "title": "Claude Auto Commit",
       "properties": {
-        "claudeCommit.model": {
+        "claudeAutoCommit.model": {
           "type": "string",
           "default": "claude-sonnet-5",
           "enum": [
@@ -124,7 +124,7 @@
           ],
           "markdownDescription": "Claude model used to write the commit message. Usage is billed to the Claude account you are signed into with the Claude Code CLI."
         },
-        "claudeCommit.emojiPosition": {
+        "claudeAutoCommit.emojiPosition": {
           "type": "string",
           "default": "beforeType",
           "enum": [
@@ -139,17 +139,17 @@
           ],
           "markdownDescription": "Where the single type emoji is placed in the subject line."
         },
-        "claudeCommit.includeScope": {
+        "claudeAutoCommit.includeScope": {
           "type": "boolean",
           "default": true,
           "markdownDescription": "Include a `(scope)` derived from the staged paths, e.g. `feat(auth):`."
         },
-        "claudeCommit.includeBody": {
+        "claudeAutoCommit.includeBody": {
           "type": "boolean",
           "default": true,
           "markdownDescription": "Write a body under the subject explaining what changed and why."
         },
-        "claudeCommit.bodyStyle": {
+        "claudeAutoCommit.bodyStyle": {
           "type": "string",
           "default": "bullets",
           "enum": [
@@ -162,19 +162,19 @@
           ],
           "markdownDescription": "How the commit body is formatted."
         },
-        "claudeCommit.maxSubjectLength": {
+        "claudeAutoCommit.maxSubjectLength": {
           "type": "number",
           "default": 72,
           "minimum": 20,
           "maximum": 120,
           "markdownDescription": "Maximum length of the subject line, including the emoji and type prefix."
         },
-        "claudeCommit.detectBreakingChanges": {
+        "claudeAutoCommit.detectBreakingChanges": {
           "type": "boolean",
           "default": true,
           "markdownDescription": "Allow Claude to mark breaking changes with `!` after the type and a `BREAKING CHANGE:` footer."
         },
-        "claudeCommit.types": {
+        "claudeAutoCommit.types": {
           "type": "array",
           "items": {
             "type": "string"
@@ -192,9 +192,9 @@
             "chore",
             "revert"
           ],
-          "markdownDescription": "Commit types Claude is allowed to choose from. Every type needs an emoji in `#claudeCommit.emojiMap#`."
+          "markdownDescription": "Commit types Claude is allowed to choose from. Every type needs an emoji in `#claudeAutoCommit.emojiMap#`."
         },
-        "claudeCommit.emojiMap": {
+        "claudeAutoCommit.emojiMap": {
           "type": "object",
           "default": {},
           "additionalProperties": {
@@ -202,36 +202,36 @@
           },
           "markdownDescription": "Override the emoji for a commit type, e.g. `{ \"feat\": \"🚀\" }`. Merged over the built-in gitmoji defaults."
         },
-        "claudeCommit.customInstructions": {
+        "claudeAutoCommit.customInstructions": {
           "type": "string",
           "default": "",
           "editPresentation": "multilineText",
           "markdownDescription": "Extra rules appended to the prompt, e.g. `Always reference the Jira ticket from the branch name.`"
         },
-        "claudeCommit.language": {
+        "claudeAutoCommit.language": {
           "type": "string",
           "default": "English",
           "markdownDescription": "Natural language the commit message is written in."
         },
-        "claudeCommit.maxDiffBytes": {
+        "claudeAutoCommit.maxDiffBytes": {
           "type": "number",
           "default": 120000,
           "minimum": 4000,
           "markdownDescription": "Size budget for the staged diff sent to Claude. Larger diffs are trimmed per file and you are told when that happens."
         },
-        "claudeCommit.claudePath": {
+        "claudeAutoCommit.claudePath": {
           "type": "string",
           "default": "",
           "markdownDescription": "Absolute path to the `claude` executable. Leave empty to discover it on `PATH` and in the usual install locations."
         },
-        "claudeCommit.timeoutSeconds": {
+        "claudeAutoCommit.timeoutSeconds": {
           "type": "number",
           "default": 120,
           "minimum": 15,
           "maximum": 600,
           "markdownDescription": "How long to wait for Claude before giving up."
         },
-        "claudeCommit.appendMode": {
+        "claudeAutoCommit.appendMode": {
           "type": "string",
           "default": "replace",
           "enum": [

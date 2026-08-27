@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="16" height="16">
+  <!-- Git Trunk Line -->
+  <line x1="68.5" y1="60.0" x2="68.5" y2="180.0" stroke="#6E6760" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Branch Line to Claude Node -->
+  <path d="M 68.5 148.0 Q 68.5 133.0 87.0 123.0 L 131.0 98.0" fill="none" stroke="#6E6760" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Lower Git Commit Ring -->
+  <circle cx="68.5" cy="183.5" r="11.2" fill="none" stroke="#333333" stroke-width="7.5"/>
+
+  <!-- Upper Git Commit Ring -->
+  <circle cx="68.5" cy="115.5" r="11.2" fill="none" stroke="#333333" stroke-width="7.5"/>
+
+  <!-- Claude Node -->
+  <circle cx="146.0" cy="91.0" r="21.0" fill="#D97757"/>
+
+  <!-- Star Cutout inside Claude Node -->
+  <path d="M 146.0 70.5 Q 146.0 82.0 157.5 82.0 Q 146.0 82.0 146.0 93.5 Q 146.0 82.0 134.5 82.0 Q 146.0 82.0 146.0 70.5 Z" fill="#FFFFFF"/>
+
+  <!-- Sparkles -->
+  <path d="M 197.0 119.0 Q 197.0 125.0 203.0 125.0 Q 197.0 125.0 197.0 131.0 Q 197.0 125.0 191.0 125.0 Q 197.0 125.0 197.0 119.0 Z" fill="#D97757"/>
+  <path d="M 186.0 163.0 Q 186.0 174.0 197.0 174.0 Q 186.0 174.0 186.0 185.0 Q 186.0 174.0 175.0 174.0 Q 186.0 174.0 186.0 163.0 Z" fill="#D97757"/>
+</svg>

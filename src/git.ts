@@ -13,7 +13,7 @@ export async function getGitApi(): Promise<API> {
   const extension = vscode.extensions.getExtension<GitExtension>('vscode.git');
   if (!extension) {
     throw new GitUnavailableError(
-      'The built-in Git extension is not available. Enable it to use Claude Commit.'
+      'The built-in Git extension is not available. Enable it to use Claude Auto Commit.'
     );
   }
 
@@ -67,7 +67,7 @@ export async function resolveRepository(
       description: repo.rootUri.fsPath,
       repo,
     })),
-    { title: 'Claude Commit', placeHolder: 'Which repository do you want a message for?' }
+    { title: 'Claude Auto Commit', placeHolder: 'Which repository do you want a message for?' }
   );
 
   return picked?.repo;

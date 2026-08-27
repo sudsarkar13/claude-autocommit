@@ -6,7 +6,7 @@ export type BodyStyle = 'bullets' | 'paragraphs';
 export type SubjectCase = 'lower' | 'sentence' | 'preserve';
 export type AppendMode = 'replace' | 'keepExisting';
 
-export interface ClaudeCommitConfig {
+export interface ClaudeAutoCommitConfig {
   model: string;
   emojiPosition: EmojiPosition;
   includeScope: boolean;
@@ -25,8 +25,8 @@ export interface ClaudeCommitConfig {
   appendMode: AppendMode;
 }
 
-export function readConfig(scope?: vscode.Uri): ClaudeCommitConfig {
-  const c = vscode.workspace.getConfiguration('claudeCommit', scope ?? null);
+export function readConfig(scope?: vscode.Uri): ClaudeAutoCommitConfig {
+  const c = vscode.workspace.getConfiguration('claudeAutoCommit', scope ?? null);
 
   const configuredTypes = c.get<string[]>('types', []);
   const types = configuredTypes.length > 0 ? configuredTypes : Object.keys(DEFAULT_EMOJI_MAP);

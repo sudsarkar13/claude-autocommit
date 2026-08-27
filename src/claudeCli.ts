@@ -61,7 +61,7 @@ export async function resolveClaudePath(
   if (configured) {
     if (!fs.existsSync(configured)) {
       throw new ClaudeNotInstalledError(
-        `\`claudeCommit.claudePath\` points at ${configured}, which does not exist.`
+        `\`claudeAutoCommit.claudePath\` points at ${configured}, which does not exist.`
       );
     }
     return configured;
@@ -87,7 +87,7 @@ export async function resolveClaudePath(
   }
 
   throw new ClaudeNotInstalledError(
-    'Could not find the Claude Code CLI. Install it, or set `claudeCommit.claudePath`.'
+    'Could not find the Claude Code CLI. Install it, or set `claudeAutoCommit.claudePath`.'
   );
 }
 
@@ -100,7 +100,7 @@ function canRun(command: string): Promise<boolean> {
 }
 
 /**
- * Read the signed-in account. This is the subscription gate: Claude Commit only
+ * Read the signed-in account. This is the subscription gate: Claude Auto Commit only
  * runs for an account signed in through claude.ai with an active plan.
  */
 export async function getAuthStatus(
@@ -145,9 +145,9 @@ export function assertActiveSubscription(status: AuthStatus): void {
   if (!SUBSCRIPTION_PLANS.has(plan)) {
     throw new ClaudeNoSubscriptionError(
       status.authMethod === 'apiKey' || status.apiProvider !== 'firstParty'
-        ? 'Claude Commit needs an account signed in through claude.ai with an active Claude plan. ' +
+        ? 'Claude Auto Commit needs an account signed in through claude.ai with an active Claude plan. ' +
           'The CLI is currently authenticated another way.'
-        : 'No active Claude plan was found on your account. Claude Commit needs a Pro, Max, Team, or Enterprise plan.'
+        : 'No active Claude plan was found on your account. Claude Auto Commit needs a Pro, Max, Team, or Enterprise plan.'
     );
   }
 }
@@ -302,7 +302,7 @@ function run(command: string, args: string[], options: RunOptions): Promise<RunR
       env: {
         ...process.env,
         // Keep the CLI in machine-readable mode regardless of user shell config.
-        CLAUDE_CODE_ENTRYPOINT: 'vscode-claude-commit',
+        CLAUDE_CODE_ENTRYPOINT: 'vscode-claude-autocommit',
       },
     });
 

@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="media/icon.png" width="112" alt="Claude Commit" />
+<img src="media/icon.png" width="112" alt="Claude Auto Commit" />
 
-# Claude Commit
+# Claude Auto Commit
 
 **Conventional Commit messages, written by Claude, from your staged changes.**
 
@@ -14,7 +14,7 @@ One click in the Source Control view. One emoji, on the type, where it belongs.
 
 ## What it does
 
-Claude Commit adds a ✨ button to the Source Control title bar. Press it and the
+Claude Auto Commit adds a ✨ button to the Source Control title bar. Press it and the
 extension reads your **staged** diff, hands it to Claude, and fills the commit
 message box with a proper Conventional Commit:
 
@@ -39,7 +39,7 @@ sprinkled through the description.
 
 ## Requirements
 
-Claude Commit runs on **your existing Claude subscription**. There is no API key
+Claude Auto Commit runs on **your existing Claude subscription**. There is no API key
 to paste and no separate billing.
 
 1. Install the [Claude Code CLI](https://docs.claude.com/en/docs/claude-code/setup)
@@ -51,7 +51,7 @@ proceed unless you are signed in through claude.ai on an active **Pro, Max,
 Team, or Enterprise** plan. Usage is billed to that account like any other
 Claude Code usage.
 
-To confirm your setup at any time, run **Claude Commit: Check Claude
+To confirm your setup at any time, run **Claude Auto Commit: Check Claude
 Subscription Status** from the Command Palette.
 
 ## Usage
@@ -59,8 +59,8 @@ Subscription Status** from the Command Palette.
 | How | What happens |
 | --- | --- |
 | ✨ button in the Source Control title bar | Writes the message into the commit box for you to review and edit |
-| **Claude Commit: Generate Message and Commit** | Writes the message and commits the staged files in one step |
-| **Claude Commit: Cancel Generation** | Stops a run in progress |
+| **Claude Auto Commit: Generate Message and Commit** | Writes the message and commits the staged files in one step |
+| **Claude Auto Commit: Cancel Generation** | Stops a run in progress |
 
 Only **staged** changes are read. Nothing unstaged, nothing already committed,
 and no files outside the diff — Claude runs with every tool switched off, so it
@@ -84,7 +84,7 @@ Each type carries exactly one emoji. Both are configurable.
 | `chore` | 🔧 | maintenance that fits nowhere else |
 | `revert` | ⏪️ | reverts a previous commit |
 
-Extra types are recognised if you add them to `claudeCommit.types`, including
+Extra types are recognised if you add them to `claudeAutoCommit.types`, including
 `security` 🔒️, `deps` ⬆️, `init` 🎉, `wip` 🚧, `remove` 🔥, `hotfix` 🚑️,
 `i18n` 🌐, `a11y` ♿️, and `release` 🔖.
 
@@ -92,31 +92,31 @@ Extra types are recognised if you add them to `claudeCommit.types`, including
 
 | Setting | Default | What it does |
 | --- | --- | --- |
-| `claudeCommit.model` | `claude-sonnet-5` | Model used. `claude-haiku-4-5` is faster and cheaper, `claude-opus-5` is the most careful. |
-| `claudeCommit.emojiPosition` | `beforeType` | `✨ feat: …`, `feat: ✨ …`, or `none`. |
-| `claudeCommit.includeScope` | `true` | Include `(scope)` after the type. |
-| `claudeCommit.subjectCase` | `lower` | `lower`, `sentence`, or `preserve`. Acronyms are never lowercased. |
-| `claudeCommit.includeBody` | `true` | Write a body under the subject. |
-| `claudeCommit.bodyStyle` | `bullets` | `bullets` or wrapped `paragraphs`. |
-| `claudeCommit.maxSubjectLength` | `72` | Subject budget, emoji and prefix included. |
-| `claudeCommit.detectBreakingChanges` | `true` | Allow `!` and a `BREAKING CHANGE:` footer. |
-| `claudeCommit.types` | 11 types | Which types Claude may choose from. |
-| `claudeCommit.emojiMap` | `{}` | Override any type's emoji, e.g. `{ "feat": "🚀" }`. |
-| `claudeCommit.customInstructions` | `""` | Extra project rules appended to the prompt. |
-| `claudeCommit.language` | `English` | Language the message is written in. |
-| `claudeCommit.maxDiffBytes` | `120000` | Diff size budget. Larger diffs are trimmed per file, and you are told. |
-| `claudeCommit.claudePath` | `""` | Path to `claude` if it is not discoverable automatically. |
-| `claudeCommit.timeoutSeconds` | `120` | How long to wait before giving up. |
-| `claudeCommit.appendMode` | `replace` | `keepExisting` leaves a non-empty commit box alone. |
+| `claudeAutoCommit.model` | `claude-sonnet-5` | Model used. `claude-haiku-4-5` is faster and cheaper, `claude-opus-5` is the most careful. |
+| `claudeAutoCommit.emojiPosition` | `beforeType` | `✨ feat: …`, `feat: ✨ …`, or `none`. |
+| `claudeAutoCommit.includeScope` | `true` | Include `(scope)` after the type. |
+| `claudeAutoCommit.subjectCase` | `lower` | `lower`, `sentence`, or `preserve`. Acronyms are never lowercased. |
+| `claudeAutoCommit.includeBody` | `true` | Write a body under the subject. |
+| `claudeAutoCommit.bodyStyle` | `bullets` | `bullets` or wrapped `paragraphs`. |
+| `claudeAutoCommit.maxSubjectLength` | `72` | Subject budget, emoji and prefix included. |
+| `claudeAutoCommit.detectBreakingChanges` | `true` | Allow `!` and a `BREAKING CHANGE:` footer. |
+| `claudeAutoCommit.types` | 11 types | Which types Claude may choose from. |
+| `claudeAutoCommit.emojiMap` | `{}` | Override any type's emoji, e.g. `{ "feat": "🚀" }`. |
+| `claudeAutoCommit.customInstructions` | `""` | Extra project rules appended to the prompt. |
+| `claudeAutoCommit.language` | `English` | Language the message is written in. |
+| `claudeAutoCommit.maxDiffBytes` | `120000` | Diff size budget. Larger diffs are trimmed per file, and you are told. |
+| `claudeAutoCommit.claudePath` | `""` | Path to `claude` if it is not discoverable automatically. |
+| `claudeAutoCommit.timeoutSeconds` | `120` | How long to wait before giving up. |
+| `claudeAutoCommit.appendMode` | `replace` | `keepExisting` leaves a non-empty commit box alone. |
 
 Settings are read per folder, so a workspace can pin its own conventions in
 `.vscode/settings.json`:
 
 ```jsonc
 {
-  "claudeCommit.types": ["feat", "fix", "docs", "chore", "deps"],
-  "claudeCommit.emojiMap": { "deps": "⬆️" },
-  "claudeCommit.customInstructions": "Reference the Linear ticket from the branch name as a footer, e.g. 'Refs: ENG-1234'."
+  "claudeAutoCommit.types": ["feat", "fix", "docs", "chore", "deps"],
+  "claudeAutoCommit.emojiMap": { "deps": "⬆️" },
+  "claudeAutoCommit.customInstructions": "Reference the Linear ticket from the branch name as a footer, e.g. 'Refs: ENG-1234'."
 }
 ```
 
@@ -143,7 +143,7 @@ terms as the rest of your Claude Code usage. The extension:
 ## Troubleshooting
 
 **"Could not find the Claude Code CLI"** — install it, or set
-`claudeCommit.claudePath` to the absolute path of the `claude` binary. Find it
+`claudeAutoCommit.claudePath` to the absolute path of the `claude` binary. Find it
 with `which claude` (macOS/Linux) or `where claude` (Windows).
 
 **"No active Claude plan was found"** — run `claude auth login` and sign in with
@@ -151,10 +151,10 @@ the Claude account that holds your subscription. If the CLI is authenticated
 with an API key or through Bedrock/Vertex, sign in through claude.ai instead.
 
 **The message isn't what you wanted** — it lands in the commit box, not in a
-commit. Edit it freely, then adjust `claudeCommit.customInstructions` so the
+commit. Edit it freely, then adjust `claudeAutoCommit.customInstructions` so the
 next one comes out closer.
 
-For anything else, run **Claude Commit: Show Logs**.
+For anything else, run **Claude Auto Commit: Show Logs**.
 
 ## Contributing
 

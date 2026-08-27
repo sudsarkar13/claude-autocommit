@@ -1,4 +1,4 @@
-import type { ClaudeCommitConfig } from './config';
+import type { ClaudeAutoCommitConfig } from './config';
 import { emojiFor } from './commitTypes';
 import type { CommitDraft } from './prompt';
 
@@ -11,7 +11,7 @@ import type { CommitDraft } from './prompt';
  */
 export function formatCommitMessage(
   draft: CommitDraft,
-  config: ClaudeCommitConfig
+  config: ClaudeAutoCommitConfig
 ): string {
   const type = normalizeType(draft.type, config);
   const emoji = config.emojiPosition === 'none' ? undefined : emojiFor(type, config.emojiMap);
@@ -58,7 +58,7 @@ export function formatCommitMessage(
   return lines.join('\n');
 }
 
-function renderBody(body: string[], config: ClaudeCommitConfig): string {
+function renderBody(body: string[], config: ClaudeAutoCommitConfig): string {
   const entries = body.map(cleanText).filter((entry) => entry.length > 0);
   if (entries.length === 0) {
     return '';
@@ -71,7 +71,7 @@ function renderBody(body: string[], config: ClaudeCommitConfig): string {
   return entries.map((entry) => wrap(stripLeadingBullet(entry), 72)).join('\n\n');
 }
 
-function normalizeType(type: string, config: ClaudeCommitConfig): string {
+function normalizeType(type: string, config: ClaudeAutoCommitConfig): string {
   const lower = cleanText(type).toLowerCase().replace(/[^a-z]/g, '');
   if (config.types.includes(lower)) {
     return lower;
@@ -109,7 +109,7 @@ const EMOJI_PATTERN =
  * Only a plainly capitalised first word is touched — `Add` becomes `add`, while
  * `API`, `OAuth`, and `TypeScript` keep the casing they need to stay readable.
  */
-function applyCase(subject: string, mode: ClaudeCommitConfig['subjectCase']): string {
+function applyCase(subject: string, mode: ClaudeAutoCommitConfig['subjectCase']): string {
   if (mode === 'preserve' || subject.length === 0) {
     return subject;
   }

@@ -29,9 +29,9 @@ jobs:
         run: node esbuild.mjs --production
 
       - name: Package
-        run: npx vsce package --out claude-commit.vsix
+        run: npx vsce package --out claude-autocommit.vsix
 
       - uses: actions/upload-artifact@v4
         with:
-          name: claude-commit-vsix
-          path: claude-commit.vsix
+          name: claude-autocommit-vsix
+          path: claude-autocommit.vsix

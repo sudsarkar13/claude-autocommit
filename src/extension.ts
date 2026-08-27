@@ -17,7 +17,7 @@ import { Logger } from './logger';
 import { CommitDraft, buildJsonSchema, buildSystemPrompt, buildUserPrompt } from './prompt';
 import type { Repository } from './gitApi';
 
-const RUNNING_CONTEXT = 'claudeCommit.running';
+const RUNNING_CONTEXT = 'claudeAutoCommit.running';
 const CLI_DOCS = 'https://docs.claude.com/en/docs/claude-code/setup';
 
 let log: Logger;
@@ -29,29 +29,29 @@ export function activate(context: vscode.ExtensionContext): void {
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'claudeCommit.generate',
+      'claudeAutoCommit.generate',
       (sourceControl?: vscode.SourceControl) => runGenerate(sourceControl, false)
     ),
     vscode.commands.registerCommand(
-      'claudeCommit.generateAndCommit',
+      'claudeAutoCommit.generateAndCommit',
       (sourceControl?: vscode.SourceControl) => runGenerate(sourceControl, true)
     ),
-    vscode.commands.registerCommand('claudeCommit.cancel', () => {
+    vscode.commands.registerCommand('claudeAutoCommit.cancel', () => {
       currentRun?.cancel();
     }),
-    vscode.commands.registerCommand('claudeCommit.checkAuth', () => checkAuth()),
-    vscode.commands.registerCommand('claudeCommit.showOutput', () => log.show())
+    vscode.commands.registerCommand('claudeAutoCommit.checkAuth', () => checkAuth()),
+    vscode.commands.registerCommand('claudeAutoCommit.showOutput', () => log.show())
   );
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration((event) => {
-      if (event.affectsConfiguration('claudeCommit.claudePath')) {
+      if (event.affectsConfiguration('claudeAutoCommit.claudePath')) {
         forgetResolvedPath();
       }
     })
   );
 
-  log.info('Claude Commit activated.');
+  log.info('Claude Auto Commit activated.');
 }
 
 export function deactivate(): void {
@@ -63,7 +63,7 @@ async function runGenerate(
   commitAfterwards: boolean
 ): Promise<void> {
   if (currentRun) {
-    vscode.window.showInformationMessage('Claude Commit is already generating a message.');
+    vscode.window.showInformationMessage('Claude Auto Commit is already generating a message.');
     return;
   }
 
@@ -104,7 +104,7 @@ async function generate(
     !commitAfterwards
   ) {
     vscode.window.showInformationMessage(
-      'Claude Commit left your existing message alone (`claudeCommit.appendMode` is set to `keepExisting`).'
+      'Claude Auto Commit left your existing message alone (`claudeAutoCommit.appendMode` is set to `keepExisting`).'
     );
     return;
   }
@@ -153,7 +153,7 @@ async function produceMessage(
 
   if (staged.files.length === 0 || !staged.diff.trim()) {
     vscode.window.showWarningMessage(
-      'Nothing is staged. Stage the changes you want described, then run Claude Commit again.'
+      'Nothing is staged. Stage the changes you want described, then run Claude Auto Commit again.'
     );
     return undefined;
   }
@@ -203,7 +203,7 @@ async function checkAuth(): Promise<void> {
     assertActiveSubscription(status);
 
     vscode.window.showInformationMessage(
-      `Claude Commit is ready — signed in as ${status.email ?? 'your account'} on the ${
+      `Claude Auto Commit is ready — signed in as ${status.email ?? 'your account'} on the ${
         status.subscriptionType ?? 'unknown'
       } plan.`
     );
@@ -214,7 +214,7 @@ async function checkAuth(): Promise<void> {
 
 async function reportError(error: unknown): Promise<void> {
   const message = error instanceof Error ? error.message : String(error);
-  log.error('Claude Commit failed.', error);
+  log.error('Claude Auto Commit failed.', error);
 
   if (error instanceof ClaudeNotInstalledError) {
     const choice = await vscode.window.showErrorMessage(
@@ -225,7 +225,7 @@ async function reportError(error: unknown): Promise<void> {
     if (choice === 'Installation Guide') {
       vscode.env.openExternal(vscode.Uri.parse(CLI_DOCS));
     } else if (choice === 'Open Settings') {
-      vscode.commands.executeCommand('workbench.action.openSettings', 'claudeCommit.claudePath');
+      vscode.commands.executeCommand('workbench.action.openSettings', 'claudeAutoCommit.claudePath');
     }
     return;
   }
@@ -248,7 +248,7 @@ async function reportError(error: unknown): Promise<void> {
   }
 
   const choice = await vscode.window.showErrorMessage(
-    error instanceof ClaudeRunError ? message : `Claude Commit failed: ${message}`,
+    error instanceof ClaudeRunError ? message : `Claude Auto Commit failed: ${message}`,
     'Show Logs'
   );
   if (choice === 'Show Logs') {
