@@ -104,7 +104,8 @@ export function buildSystemPrompt(config: ClaudeAutoCommitConfig): string {
 
   if (config.detectBreakingChanges) {
     rules.push(
-      'Set `breaking` to true only when existing callers must change: a removed or renamed export, a changed function signature, a migration, a dropped configuration key. Refactors that preserve behaviour are not breaking. When true, `breakingDescription` says what breaks and what to do about it.'
+      'Set `breaking` to true only when existing callers must change: a removed or renamed export, a changed function signature, a migration, a dropped configuration key. Refactors that preserve behaviour are not breaking. When true, `breakingDescription` says what breaks and what to do about it.',
+      'A breaking change is never a `chore`. If callers must change, the commit is significant by definition, so pick the type that describes what actually changed — commonly `feat`, `fix`, `refactor`, or `build`. Reserve `chore` for maintenance nobody downstream notices.'
     );
   } else {
     rules.push('Always set `breaking` to false and `breakingDescription` to null.');
