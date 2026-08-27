@@ -1,0 +1,270 @@
+{
+  "name": "claude-commit",
+  "displayName": "Claude Commit",
+  "description": "Generate Conventional Commit messages with a single gitmoji from your staged changes, using your existing Claude subscription.",
+  "version": "0.1.0",
+  "publisher": "sudsarkar13",
+  "license": "MIT",
+  "author": {
+    "name": "Sudeepta Sarkar",
+    "email": "sudsarkar13@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sudsarkar13/claude-commit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sudsarkar13/claude-commit/issues"
+  },
+  "homepage": "https://github.com/sudsarkar13/claude-commit#readme",
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#1F1E1D",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "SCM Providers",
+    "AI",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "claude",
+    "commit",
+    "conventional commits",
+    "gitmoji",
+    "git",
+    "ai"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Claude Commit runs the Claude Code CLI against your repository."
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "claudeCommit.generate",
+        "title": "Generate Commit Message",
+        "category": "Claude Commit",
+        "icon": "$(sparkle)",
+        "enablement": "!claudeCommit.running"
+      },
+      {
+        "command": "claudeCommit.generateAndCommit",
+        "title": "Generate Message and Commit",
+        "category": "Claude Commit",
+        "enablement": "!claudeCommit.running"
+      },
+      {
+        "command": "claudeCommit.cancel",
+        "title": "Cancel Generation",
+        "category": "Claude Commit",
+        "icon": "$(stop-circle)",
+        "enablement": "claudeCommit.running"
+      },
+      {
+        "command": "claudeCommit.checkAuth",
+        "title": "Check Claude Subscription Status",
+        "category": "Claude Commit"
+      },
+      {
+        "command": "claudeCommit.showOutput",
+        "title": "Show Logs",
+        "category": "Claude Commit"
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "claudeCommit.generate",
+          "group": "navigation",
+          "when": "scmProvider == git && !claudeCommit.running"
+        },
+        {
+          "command": "claudeCommit.cancel",
+          "group": "navigation",
+          "when": "scmProvider == git && claudeCommit.running"
+        },
+        {
+          "command": "claudeCommit.generateAndCommit",
+          "group": "1_modification",
+          "when": "scmProvider == git"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "claudeCommit.cancel",
+          "when": "claudeCommit.running"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Claude Commit",
+      "properties": {
+        "claudeCommit.model": {
+          "type": "string",
+          "default": "claude-sonnet-5",
+          "enum": [
+            "claude-opus-5",
+            "claude-sonnet-5",
+            "claude-haiku-4-5"
+          ],
+          "enumDescriptions": [
+            "Highest quality, slowest, most expensive.",
+            "Recommended balance of quality and speed.",
+            "Fastest and cheapest; good for small diffs."
+          ],
+          "markdownDescription": "Claude model used to write the commit message. Usage is billed to the Claude account you are signed into with the Claude Code CLI."
+        },
+        "claudeCommit.emojiPosition": {
+          "type": "string",
+          "default": "beforeType",
+          "enum": [
+            "beforeType",
+            "afterType",
+            "none"
+          ],
+          "enumDescriptions": [
+            "✨ feat(auth): add passkey login",
+            "feat(auth): ✨ add passkey login",
+            "feat(auth): add passkey login"
+          ],
+          "markdownDescription": "Where the single type emoji is placed in the subject line."
+        },
+        "claudeCommit.includeScope": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Include a `(scope)` derived from the staged paths, e.g. `feat(auth):`."
+        },
+        "claudeCommit.includeBody": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Write a body under the subject explaining what changed and why."
+        },
+        "claudeCommit.bodyStyle": {
+          "type": "string",
+          "default": "bullets",
+          "enum": [
+            "bullets",
+            "paragraphs"
+          ],
+          "enumDescriptions": [
+            "Body lines rendered as `- ` bullets.",
+            "Body lines rendered as wrapped paragraphs."
+          ],
+          "markdownDescription": "How the commit body is formatted."
+        },
+        "claudeCommit.maxSubjectLength": {
+          "type": "number",
+          "default": 72,
+          "minimum": 20,
+          "maximum": 120,
+          "markdownDescription": "Maximum length of the subject line, including the emoji and type prefix."
+        },
+        "claudeCommit.detectBreakingChanges": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Allow Claude to mark breaking changes with `!` after the type and a `BREAKING CHANGE:` footer."
+        },
+        "claudeCommit.types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "feat",
+            "fix",
+            "docs",
+            "style",
+            "refactor",
+            "perf",
+            "test",
+            "build",
+            "ci",
+            "chore",
+            "revert"
+          ],
+          "markdownDescription": "Commit types Claude is allowed to choose from. Every type needs an emoji in `#claudeCommit.emojiMap#`."
+        },
+        "claudeCommit.emojiMap": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "string"
+          },
+          "markdownDescription": "Override the emoji for a commit type, e.g. `{ \"feat\": \"🚀\" }`. Merged over the built-in gitmoji defaults."
+        },
+        "claudeCommit.customInstructions": {
+          "type": "string",
+          "default": "",
+          "editPresentation": "multilineText",
+          "markdownDescription": "Extra rules appended to the prompt, e.g. `Always reference the Jira ticket from the branch name.`"
+        },
+        "claudeCommit.language": {
+          "type": "string",
+          "default": "English",
+          "markdownDescription": "Natural language the commit message is written in."
+        },
+        "claudeCommit.maxDiffBytes": {
+          "type": "number",
+          "default": 120000,
+          "minimum": 4000,
+          "markdownDescription": "Size budget for the staged diff sent to Claude. Larger diffs are trimmed per file and you are told when that happens."
+        },
+        "claudeCommit.claudePath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Absolute path to the `claude` executable. Leave empty to discover it on `PATH` and in the usual install locations."
+        },
+        "claudeCommit.timeoutSeconds": {
+          "type": "number",
+          "default": 120,
+          "minimum": 15,
+          "maximum": 600,
+          "markdownDescription": "How long to wait for Claude before giving up."
+        },
+        "claudeCommit.appendMode": {
+          "type": "string",
+          "default": "replace",
+          "enum": [
+            "replace",
+            "keepExisting"
+          ],
+          "enumDescriptions": [
+            "Overwrite whatever is in the commit input box.",
+            "Do nothing if the commit input box already has text."
+          ],
+          "markdownDescription": "What to do when the Source Control input box is not empty."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run check-types && npm run lint && node esbuild.mjs --production",
+    "compile": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.90.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vscode/vsce": "^3.2.0",
+    "esbuild": "^0.24.0",
+    "eslint": "^8.57.0",
+    "ovsx": "^0.10.1",
+    "typescript": "^5.5.0"
+  }
+}
