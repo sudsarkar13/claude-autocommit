@@ -2,7 +2,7 @@
   "name": "claude-autocommit",
   "displayName": "Claude Auto Commit",
   "description": "Generate Conventional Commit messages with a single gitmoji from your staged changes, using your existing Claude subscription.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "sudsarkar13",
   "license": "MIT",
   "author": {
@@ -52,14 +52,17 @@
     "commands": [
       {
         "command": "claudeAutoCommit.generate",
-        "title": "Generate Commit Message",
+        "title": "Generate Commit with Claude Auto Commit",
         "category": "Claude Auto Commit",
-        "icon": "$(sparkle)",
+        "icon": {
+          "light": "./media/icon-light.svg",
+          "dark": "./media/icon-dark.svg"
+        },
         "enablement": "!claudeAutoCommit.running"
       },
       {
         "command": "claudeAutoCommit.generateAndCommit",
-        "title": "Generate Message and Commit",
+        "title": "Generate Message and Commit with Claude Auto Commit",
         "category": "Claude Auto Commit",
         "enablement": "!claudeAutoCommit.running"
       },
@@ -143,6 +146,21 @@
           "type": "boolean",
           "default": true,
           "markdownDescription": "Include a `(scope)` derived from the staged paths, e.g. `feat(auth):`."
+        },
+        "claudeAutoCommit.subjectCase": {
+          "type": "string",
+          "default": "lower",
+          "enum": [
+            "lower",
+            "sentence",
+            "preserve"
+          ],
+          "enumDescriptions": [
+            "feat(auth): add passkey login",
+            "feat(auth): Add passkey login",
+            "Let Claude capitalise whichever way reads best."
+          ],
+          "markdownDescription": "Capitalisation of the subject line after the type and scope."
         },
         "claudeAutoCommit.includeBody": {
           "type": "boolean",

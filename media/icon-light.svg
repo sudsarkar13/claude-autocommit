@@ -1,23 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="16" height="16">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
   <!-- Git Trunk Line -->
-  <line x1="68.5" y1="60.0" x2="68.5" y2="180.0" stroke="#6E6760" stroke-width="8" stroke-linecap="round"/>
+  <line x1="4.20" y1="3.50" x2="4.20" y2="13.00" stroke="#55504A" stroke-width="1.0" stroke-linecap="round"/>
 
   <!-- Branch Line to Claude Node -->
-  <path d="M 68.5 148.0 Q 68.5 133.0 87.0 123.0 L 131.0 98.0" fill="none" stroke="#6E6760" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 4.20 10.20 Q 4.20 8.8 5.80 8.20 L 9.00 6.20" fill="none" stroke="#55504A" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round"/>
 
   <!-- Lower Git Commit Ring -->
-  <circle cx="68.5" cy="183.5" r="11.2" fill="none" stroke="#333333" stroke-width="7.5"/>
+  <circle cx="4.20" cy="12.00" r="1.00" fill="none" stroke="#222222" stroke-width="0.80"/>
 
   <!-- Upper Git Commit Ring -->
-  <circle cx="68.5" cy="115.5" r="11.2" fill="none" stroke="#333333" stroke-width="7.5"/>
+  <circle cx="4.20" cy="7.40" r="1.00" fill="none" stroke="#222222" stroke-width="0.80"/>
 
-  <!-- Claude Node -->
-  <circle cx="146.0" cy="91.0" r="21.0" fill="#D97757"/>
-
-  <!-- Star Cutout inside Claude Node -->
-  <path d="M 146.0 70.5 Q 146.0 82.0 157.5 82.0 Q 146.0 82.0 146.0 93.5 Q 146.0 82.0 134.5 82.0 Q 146.0 82.0 146.0 70.5 Z" fill="#FFFFFF"/>
+  <!-- Claude Node, with the star knocked out so the toolbar shows through -->
+  <path fill-rule="evenodd" fill="#D97757" d="M 7.20 5.80 A 2.60 2.60 0 1 1 12.40 5.80 A 2.60 2.60 0 1 1 7.20 5.80 Z M 9.80 3.80 Q 9.80 5.20 11.20 5.20 Q 9.80 5.20 9.80 6.60 Q 9.80 5.20 8.40 5.20 Q 9.80 5.20 9.80 3.80 Z"/>
 
   <!-- Sparkles -->
-  <path d="M 197.0 119.0 Q 197.0 125.0 203.0 125.0 Q 197.0 125.0 197.0 131.0 Q 197.0 125.0 191.0 125.0 Q 197.0 125.0 197.0 119.0 Z" fill="#D97757"/>
-  <path d="M 186.0 163.0 Q 186.0 174.0 197.0 174.0 Q 186.0 174.0 186.0 185.0 Q 186.0 174.0 175.0 174.0 Q 186.0 174.0 186.0 163.0 Z" fill="#D97757"/>
+  <path d="M 13.50 7.40 Q 13.50 8.20 14.30 8.20 Q 13.50 8.20 13.50 9.00 Q 13.50 8.20 12.70 8.20 Q 13.50 8.20 13.50 7.40 Z" fill="#D97757"/>
+  <path d="M 12.50 10.20 Q 12.50 11.50 13.80 11.50 Q 12.50 11.50 12.50 12.80 Q 12.50 11.50 11.20 11.50 Q 12.50 11.50 12.50 10.20 Z" fill="#D97757"/>
 </svg>

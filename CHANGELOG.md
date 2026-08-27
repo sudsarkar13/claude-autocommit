@@ -4,6 +4,21 @@ All notable changes to Claude Auto Commit are documented here. The format follow
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-08-27
+
+### Added
+- `claudeAutoCommit.subjectCase` is now exposed in Settings (`lower`, `sentence`, `preserve`). The prompt already honoured it, but there was no way to change it from the default.
+
+### Fixed
+- Source Control icons now scale correctly. Fixed `width`/`height` attributes pinned them to a 16px intrinsic size, so they did not fill the toolbar slot and were upscaled from a bitmap on HiDPI displays.
+- The star inside the Claude node is a real transparent cutout instead of a fill hardcoded to one assumed toolbar colour, so it no longer shows as a solid blob on themes whose background is not `#1E1E1E`/`#FFFFFF`.
+
+### Changed
+- Renamed extension to **Claude Auto Commit** (`claude-autocommit`).
+- Updated command and configuration namespace to `claudeAutoCommit.*`.
+- Replaced generic sparkle icon in Source Control with dedicated Claude Auto Commit logo SVGs for light and dark themes.
+- Updated Source Control button tooltip to **Generate Commit with Claude Auto Commit** for clear distinction from GitHub Copilot.
+
 ## [0.1.0] - 2026-08-27
 
 Initial release.
